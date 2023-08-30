@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {TodoList} from "./todoList";
-import {TodoItem} from "./todoItem";
+import {TodoList} from './todoList';
+import {TodoItem} from './todoItem';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +8,10 @@ import {TodoItem} from "./todoItem";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private list = new TodoList("Tudor", [
-    new TodoItem("Enel deploy", true),
-    new TodoItem("HSO management dev time"),
-    new TodoItem("HSO File Upload")
+  private list = new TodoList('Tudor', [
+    new TodoItem('Enel deploy', true),
+    new TodoItem('HSO management dev time'),
+    new TodoItem('HSO File Upload')
   ]);
 
   get username(): string {
@@ -24,6 +24,14 @@ export class AppComponent {
   }
 
   get items(): readonly TodoItem[] {
-    return this.list.items;
+    return this.list.items.filter(item => this.showComplete || !item.complete);
   }
+
+  addItem(newItem: string) {
+    if (newItem != '') {
+      this.list.addItem(newItem);
+    }
+  }
+
+  showComplete: boolean = false;
 }
